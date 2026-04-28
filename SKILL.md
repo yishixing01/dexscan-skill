@@ -18,12 +18,15 @@ description: >
 ```
 dexscan-skill/
 ├── SKILL.md              # 主技能文件（当前文件）
+├── package.json          # npm 包配置
+├── README.md             # 说明文档
 ├── scripts/
-│   └── dexscan.js        # API 调用脚本（get/post封装+签名认证）
+│   ├── dexscan.js        # API 调用脚本（get/post封装+签名认证）
+│   └── install.sh        # 安装脚本
 ├── references/
 │   ├── signal.md         # 代币信号接口文档
-│   ├── address-rank.md   # 地址牛人榜接口文档
-│   └── heat.md          # 热度接口文档
+│   ├── address-rank.md    # 地址牛人榜接口文档
+│   └── heat.md           # 热度接口文档
 ├── assets/               # 资源文件目录
 └── evals/
     └── signal-evals.json # 测试用例
