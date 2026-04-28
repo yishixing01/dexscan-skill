@@ -313,14 +313,527 @@ async function queryTwitterTweetsHeat(tweetIds = []) {
     return post('/v3/base/twitter-tweets-heat', tweetIds);
 }
 
+// ==================== 行情接口 ====================
+
+/**
+ * 分页查询代币排行
+ * 接口地址: POST /v3/base/market/coin-rank
+ * 接口描述: 按时间粒度分页查询代币排行榜，支持过滤和排序
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名，ALL查全链
+ * @param {string} options.bar - 时间粒度（5m/1h/4h/24h）
+ * @param {number} [options.page] - 页数
+ * @param {number} [options.pageSize] - 页大小
+ * @param {Array} [options.order] - 排序规则 [{column: 'value', asc: false}]
+ * @param {number} [options.minValue] - 成交额最小值
+ * @param {number} [options.maxValue] - 成交额最大值
+ * @param {number} [options.minLiquid] - 流动性最小值
+ * @param {number} [options.maxLiquid] - 流动性最大值
+ * @param {number} [options.minPriceChange] - 涨跌幅最小值
+ * @param {number} [options.maxPriceChange] - 涨跌幅最大值
+ * @param {number} [options.minMarketCap] - 市值最小值
+ * @param {number} [options.maxMarketCap] - 市值最大值
+ * @param {number} [options.minTradeCount] - 交易笔数最小值
+ * @param {number} [options.maxTradeCount] - 交易笔数最大值
+ * @param {number} [options.minAddressCount] - 活跃地址数最小值
+ * @param {number} [options.maxAddressCount] - 活跃地址数最大值
+ * @param {number} [options.minHolderCount] - 持币地址数最小值
+ * @param {number} [options.maxHolderCount] - 持币地址数最大值
+ * @param {boolean} [options.onlyMeme] - 只看Meme币
+ * @param {boolean} [options.hideHigh] - 隐藏高风险
+ * @param {boolean} [options.hideStable] - 隐藏稳定币
+ * @returns {Promise<any>}
+ */
+async function queryCoinRank(options = {}) {
+    const {
+        chainName,
+        bar,
+        page,
+        pageSize,
+        order,
+        minValue,
+        maxValue,
+        minLiquid,
+        maxLiquid,
+        minPriceChange,
+        maxPriceChange,
+        minMarketCap,
+        maxMarketCap,
+        minTradeCount,
+        maxTradeCount,
+        minAddressCount,
+        maxAddressCount,
+        minHolderCount,
+        maxHolderCount,
+        minCreateTime,
+        maxCreateTime,
+        onlyMeme,
+        hideHigh,
+        hideStable,
+        unit,
+        minCreateDuration,
+        maxCreateDuration
+    } = options;
+
+    const params = { chainName, bar };
+    if (page !== undefined) params.page = page;
+    if (pageSize !== undefined) params.pageSize = pageSize;
+    if (order) params.order = order;
+    if (minValue !== undefined) params.minValue = minValue;
+    if (maxValue !== undefined) params.maxValue = maxValue;
+    if (minLiquid !== undefined) params.minLiquid = minLiquid;
+    if (maxLiquid !== undefined) params.maxLiquid = maxLiquid;
+    if (minPriceChange !== undefined) params.minPriceChange = minPriceChange;
+    if (maxPriceChange !== undefined) params.maxPriceChange = maxPriceChange;
+    if (minMarketCap !== undefined) params.minMarketCap = minMarketCap;
+    if (maxMarketCap !== undefined) params.maxMarketCap = maxMarketCap;
+    if (minTradeCount !== undefined) params.minTradeCount = minTradeCount;
+    if (maxTradeCount !== undefined) params.maxTradeCount = maxTradeCount;
+    if (minAddressCount !== undefined) params.minAddressCount = minAddressCount;
+    if (maxAddressCount !== undefined) params.maxAddressCount = maxAddressCount;
+    if (minHolderCount !== undefined) params.minHolderCount = minHolderCount;
+    if (maxHolderCount !== undefined) params.maxHolderCount = maxHolderCount;
+    if (minCreateTime !== undefined) params.minCreateTime = minCreateTime;
+    if (maxCreateTime !== undefined) params.maxCreateTime = maxCreateTime;
+    if (onlyMeme !== undefined) params.onlyMeme = onlyMeme;
+    if (hideHigh !== undefined) params.hideHigh = hideHigh;
+    if (hideStable !== undefined) params.hideStable = hideStable;
+    if (unit !== undefined) params.unit = unit;
+    if (minCreateDuration !== undefined) params.minCreateDuration = minCreateDuration;
+    if (maxCreateDuration !== undefined) params.maxCreateDuration = maxCreateDuration;
+
+    return post('/v3/base/market/coin-rank', params);
+}
+
+/**
+ * 游标查询交易活动列表
+ * 接口地址: POST /v3/base/market/trade-scroll
+ * 接口描述: 游标分页查询指定代币的链上交易记录
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.tokenContractAddress - 代币合约地址
+ * @param {Array} [options.swapTypes] - 交易类型（1-买入，2-卖出）
+ * @param {number} [options.minValue] - 成交额最小值（USD）
+ * @param {number} [options.maxValue] - 成交额最大值（USD）
+ * @param {string} [options.address] - 按钱包地址筛选
+ * @param {number} [options.begin] - 起始时间戳（毫秒）
+ * @param {number} [options.end] - 截止时间戳（毫秒）
+ * @param {number} [options.dexEnum] - DEX类型枚举值
+ * @param {boolean} [options.timeDesc] - 是否时间倒序
+ * @param {number} [options.size] - 每页数量，默认50
+ * @param {object} [options.cursor] - 游标，首次不传
+ * @returns {Promise<any>}
+ */
+async function queryTradeScroll(options = {}) {
+    const {
+        chainName,
+        tokenContractAddress,
+        swapTypes,
+        minValue,
+        maxValue,
+        address,
+        begin,
+        end,
+        dexEnum,
+        timeDesc,
+        size,
+        cursor
+    } = options;
+
+    const params = { chainName, tokenContractAddress };
+    if (swapTypes) params.swapTypes = swapTypes;
+    if (minValue !== undefined) params.minValue = minValue;
+    if (maxValue !== undefined) params.maxValue = maxValue;
+    if (address) params.address = address;
+    if (begin !== undefined) params.begin = begin;
+    if (end !== undefined) params.end = end;
+    if (dexEnum !== undefined) params.dexEnum = dexEnum;
+    if (timeDesc !== undefined) params.timeDesc = timeDesc;
+    if (size !== undefined) params.size = size;
+    if (cursor) params.cursor = cursor;
+
+    return post('/v3/base/market/trade-scroll', params);
+}
+
+/**
+ * 游标查询流动性变化列表
+ * 接口地址: POST /v3/base/market/liquid-scroll
+ * 接口描述: 游标分页查询指定代币的流动性添加/移除记录
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.tokenContractAddress - 代币合约地址
+ * @param {Array} [options.swapTypes] - 流动性变更类型（1-添加，2-移除）
+ * @param {number} [options.minValue] - 总额最小值（USD）
+ * @param {number} [options.maxValue] - 总额最大值（USD）
+ * @param {string} [options.address] - 按钱包地址筛选
+ * @param {number} [options.begin] - 起始时间戳（毫秒）
+ * @param {number} [options.end] - 截止时间戳（毫秒）
+ * @param {number} [options.dexEnum] - DEX类型枚举值
+ * @param {boolean} [options.timeDesc] - 是否时间倒序
+ * @param {number} [options.size] - 每页数量，默认50
+ * @param {object} [options.cursor] - 游标，首次不传
+ * @returns {Promise<any>}
+ */
+async function queryLiquidScroll(options = {}) {
+    const {
+        chainName,
+        tokenContractAddress,
+        swapTypes,
+        minValue,
+        maxValue,
+        address,
+        begin,
+        end,
+        dexEnum,
+        timeDesc,
+        size,
+        cursor
+    } = options;
+
+    const params = { chainName, tokenContractAddress };
+    if (swapTypes) params.swapTypes = swapTypes;
+    if (minValue !== undefined) params.minValue = minValue;
+    if (maxValue !== undefined) params.maxValue = maxValue;
+    if (address) params.address = address;
+    if (begin !== undefined) params.begin = begin;
+    if (end !== undefined) params.end = end;
+    if (dexEnum !== undefined) params.dexEnum = dexEnum;
+    if (timeDesc !== undefined) params.timeDesc = timeDesc;
+    if (size !== undefined) params.size = size;
+    if (cursor) params.cursor = cursor;
+
+    return post('/v3/base/market/liquid-scroll', params);
+}
+
+/**
+ * 查询代币盈利列表
+ * 接口地址: POST /v3/base/market/pnl-coin-list
+ * 接口描述: 查询指定代币的持仓地址盈亏数据列表
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.tokenContractAddress - 代币合约地址
+ * @param {string} [options.type] - 地址类型筛选（DEV/KOL/TOP10/SNIPER/NEW）
+ * @param {boolean} [options.holderList] - true时按持仓量排序返回Holder列表
+ * @param {Array} [options.addresses] - 批量钱包地址列表，最多10个
+ * @returns {Promise<any>}
+ */
+async function queryPnlCoinList(options = {}) {
+    const {
+        chainName,
+        tokenContractAddress,
+        type,
+        holderList,
+        addresses
+    } = options;
+
+    const params = { chainName, tokenContractAddress };
+    if (type) params.type = type;
+    if (holderList !== undefined) params.holderList = holderList;
+    if (addresses) params.addresses = addresses;
+
+    return post('/v3/base/market/pnl-coin-list', params);
+}
+
+/**
+ * 游标查询开发者代币列表
+ * 接口地址: POST /v3/base/market/developer-scroll
+ * 接口描述: 游标分页查询指定代币的关联开发者创建的代币列表
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.tokenContractAddress - 代币合约地址
+ * @param {number} [options.size] - 每页数量，默认30
+ * @param {number} [options.cursor] - 游标（创建时间戳ms），首次不传
+ * @param {boolean} [options.needStats] - 是否返回开发者统计数据
+ * @returns {Promise<any>}
+ */
+async function queryDeveloperScroll(options = {}) {
+    const {
+        chainName,
+        tokenContractAddress,
+        size,
+        cursor,
+        needStats
+    } = options;
+
+    const params = { chainName, tokenContractAddress };
+    if (size !== undefined) params.size = size;
+    if (cursor !== undefined) params.cursor = cursor;
+    if (needStats !== undefined) params.needStats = needStats;
+
+    return post('/v3/base/market/developer-scroll', params);
+}
+
+/**
+ * 查询代币近期统计信息
+ * 接口地址: POST /v3/base/market/coin-summary
+ * 接口描述: 查询代币近期统计信息
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.tokenContractAddress - 代币合约地址
+ * @param {Array} [options.bars] - 时间粒度列表
+ * @returns {Promise<any>}
+ */
+async function queryCoinSummary(options = {}) {
+    const { chainName, tokenContractAddress, bars } = options;
+    const params = { chainName, tokenContractAddress };
+    if (bars) params.bars = bars;
+    return post('/v3/base/market/coin-summary', params);
+}
+
+/**
+ * 查询代币信息
+ * 接口地址: POST /v3/base/market/coin-info
+ * 接口描述: 查询代币详细信息
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.tokenContractAddress - 代币合约地址
+ * @returns {Promise<any>}
+ */
+async function queryCoinInfo(options = {}) {
+    const { chainName, tokenContractAddress } = options;
+    return post('/v3/base/market/coin-info', {
+        chainName,
+        tokenContractAddress
+    });
+}
+
+/**
+ * 查询K线历史数据
+ * 接口地址: POST /v3/base/market/kline-historical
+ * 接口描述: 查询代币K线历史数据
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.tokenContractAddress - 代币合约地址
+ * @param {string} options.interval - K线周期（1m/5m/15m/30m/1h/4h/1d/1w）
+ * @param {number} options.begin - 起始时间戳（毫秒）
+ * @param {number} options.end - 结束时间戳（毫秒）
+ * @returns {Promise<any>}
+ */
+async function queryKlineHistorical(options = {}) {
+    const {
+        chainName,
+        tokenContractAddress,
+        interval,
+        begin,
+        end
+    } = options;
+
+    return post('/v3/base/market/kline-historical', {
+        chainName,
+        tokenContractAddress,
+        interval,
+        begin,
+        end
+    });
+}
+
+/**
+ * 查询Meme代币排行列表
+ * 接口地址: POST /v3/base/market/meme-rank
+ * 接口描述: 查询Meme代币排行列表
+ * @param {object} options - 查询参数
+ * @param {string} [options.chainName] - 链名
+ * @param {Array} [options.order] - 排序规则 [{column: 'marketCap', asc: false}]
+ * @param {number} [options.page] - 页数
+ * @param {number} [options.pageSize] - 页大小
+ * @returns {Promise<any>}
+ */
+async function queryMemeRank(options = {}) {
+    const { chainName, order, page, pageSize } = options;
+    const params = {};
+    if (chainName) params.chainName = chainName;
+    if (order) params.order = order;
+    if (page !== undefined) params.page = page;
+    if (pageSize !== undefined) params.pageSize = pageSize;
+    return post('/v3/base/market/meme-rank', params);
+}
+
+/**
+ * 查询Meme支持的DEX列表
+ * 接口地址: POST /v3/base/market/meme-dexs
+ * 接口描述: 查询Meme代币支持的DEX列表
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.tokenContractAddress - 代币合约地址
+ * @returns {Promise<any>}
+ */
+async function queryMemeDexs(options = {}) {
+    const { chainName, tokenContractAddress } = options;
+    return post('/v3/base/market/meme-dexs', {
+        chainName,
+        tokenContractAddress
+    });
+}
+
+// ==================== 地址情况接口 ====================
+
+/**
+ * 游标查询地址交易历史列表
+ * 接口地址: POST /v3/base/address/address-trade-scroll
+ * 接口描述: 游标分页查询指定钱包地址的历史交易盈亏记录
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.address - 钱包地址
+ * @param {string} [options.tokenContractAddress] - 代币合约地址，传入时只查询该代币的交易记录
+ * @param {Array} [options.swapTypes] - 交易类型（1-买入，2-卖出）
+ * @param {number} [options.size] - 每次返回数量，默认30
+ * @param {object} [options.cursor] - 游标，首次不传
+ * @returns {Promise<any>}
+ */
+async function queryAddressTradeScroll(options = {}) {
+    const {
+        chainName,
+        address,
+        tokenContractAddress,
+        swapTypes,
+        size,
+        cursor
+    } = options;
+
+    const params = { chainName, address };
+    if (tokenContractAddress) params.tokenContractAddress = tokenContractAddress;
+    if (swapTypes) params.swapTypes = swapTypes;
+    if (size !== undefined) params.size = size;
+    if (cursor) params.cursor = cursor;
+
+    return post('/v3/base/address/address-trade-scroll', params);
+}
+
+/**
+ * 分页查询地址盈亏分析列表
+ * 接口地址: POST /v3/base/address/address-list
+ * 接口描述: 分页查询钱包地址的各代币持仓盈亏情况，支持多维度过滤和排序
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.address - 钱包地址
+ * @param {number} [options.page] - 页数，默认1
+ * @param {number} [options.pageSize] - 页大小，默认20
+ * @param {Array} [options.order] - 排序规则 [{column: 'totalPnl', asc: false}]
+ * @param {string} [options.baseAddress] - 代币合约地址，传入时只查询该代币
+ * @param {boolean} [options.hideHighRisk] - 是否隐藏高风险代币
+ * @param {boolean} [options.hideClearance] - 是否隐藏已清仓代币
+ * @param {boolean} [options.hideLowValue] - 是否隐藏持仓价值低于$1的代币
+ * @returns {Promise<any>}
+ */
+async function queryAddressList(options = {}) {
+    const {
+        chainName,
+        address,
+        page,
+        pageSize,
+        order,
+        baseAddress,
+        hideHighRisk,
+        hideClearance,
+        hideLowValue,
+        minRealizedPnlRatio,
+        maxRealizedPnlRatio,
+        minUnrealizedPnlRatio,
+        maxUnrealizedPnlRatio,
+        minTotalPnlRatio,
+        maxTotalPnlRatio
+    } = options;
+
+    const params = { chainName, address };
+    if (page !== undefined) params.page = page;
+    if (pageSize !== undefined) params.pageSize = pageSize;
+    if (order) params.order = order;
+    if (baseAddress) params.baseAddress = baseAddress;
+    if (hideHighRisk !== undefined) params.hideHighRisk = hideHighRisk;
+    if (hideClearance !== undefined) params.hideClearance = hideClearance;
+    if (hideLowValue !== undefined) params.hideLowValue = hideLowValue;
+    if (minRealizedPnlRatio !== undefined) params.minRealizedPnlRatio = minRealizedPnlRatio;
+    if (maxRealizedPnlRatio !== undefined) params.maxRealizedPnlRatio = maxRealizedPnlRatio;
+    if (minUnrealizedPnlRatio !== undefined) params.minUnrealizedPnlRatio = minUnrealizedPnlRatio;
+    if (maxUnrealizedPnlRatio !== undefined) params.maxUnrealizedPnlRatio = maxUnrealizedPnlRatio;
+    if (minTotalPnlRatio !== undefined) params.minTotalPnlRatio = minTotalPnlRatio;
+    if (maxTotalPnlRatio !== undefined) params.maxTotalPnlRatio = maxTotalPnlRatio;
+
+    return post('/v3/base/address/address-list', params);
+}
+
+/**
+ * 分页查询地址资产组合列表
+ * 接口地址: POST /v3/base/address/address-asset-top
+ * 接口描述: 分页查询钱包地址的持仓资产列表，按持仓价值降序排列
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.address - 钱包地址
+ * @param {number} [options.page] - 页数，默认1
+ * @param {number} [options.pageSize] - 页大小，默认10
+ * @returns {Promise<any>}
+ */
+async function queryAddressAssetTop(options = {}) {
+    const {
+        chainName,
+        address,
+        page,
+        pageSize
+    } = options;
+
+    const params = { chainName, address };
+    if (page !== undefined) params.page = page;
+    if (pageSize !== undefined) params.pageSize = pageSize;
+
+    return post('/v3/base/address/address-asset-top', params);
+}
+
+/**
+ * 分页查询地址开发者代币列表
+ * 接口地址: POST /v3/base/address/developer-page
+ * 接口描述: 分页查询指定开发者地址创建的代币列表，支持排序
+ * @param {object} options - 查询参数
+ * @param {string} options.chainName - 链名
+ * @param {string} options.addressDev - 开发者钱包地址
+ * @param {number} [options.page] - 页数，默认1
+ * @param {number} [options.pageSize] - 页大小，默认20
+ * @param {Array} [options.order] - 排序规则 [{column: 'createTime', asc: false}]
+ * @returns {Promise<any>}
+ */
+async function queryDeveloperPage(options = {}) {
+    const {
+        chainName,
+        addressDev,
+        page,
+        pageSize,
+        order
+    } = options;
+
+    const params = { chainName, addressDev };
+    if (page !== undefined) params.page = page;
+    if (pageSize !== undefined) params.pageSize = pageSize;
+    if (order) params.order = order;
+
+    return post('/v3/base/address/developer-page', params);
+}
+
 // 导出方法
 module.exports = {
     get,
     post,
+    // 代币信号
     querySignalList,
     querySignalRank,
+    // 地址牛人榜
     queryAddressRank,
+    // 热度
     queryCoinHeatPage,
     queryCoinLastHeat,
-    queryTwitterTweetsHeat
+    queryTwitterTweetsHeat,
+    // 行情
+    queryCoinRank,
+    queryTradeScroll,
+    queryLiquidScroll,
+    queryPnlCoinList,
+    queryDeveloperScroll,
+    queryCoinSummary,
+    queryCoinInfo,
+    queryKlineHistorical,
+    queryMemeRank,
+    queryMemeDexs,
+    // 地址情况
+    queryAddressTradeScroll,
+    queryAddressList,
+    queryAddressAssetTop,
+    queryDeveloperPage
 };
