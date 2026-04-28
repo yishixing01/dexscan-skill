@@ -1,0 +1,12 @@
+{
+    "name": "dexscan-skill",
+    "version": "1.0.0",
+    "description": "DexScan 加密货币行情与信号分析工具",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yishixing01/dexscan-skill"
+    },
+    "scripts": {
+        "start": "node ./scripts/dexscan.js"
+    }
+}
