@@ -21,10 +21,12 @@ dexscan-skill/
 ├── scripts/
 │   └── dexscan.js        # API 调用脚本（get/post封装+签名认证）
 ├── references/
-│   └── signal-api.md     # 代币信号接口文档（信号列表查询、信号排行榜）
+│   ├── signal.md         # 代币信号接口文档
+│   ├── address-rank.md   # 地址牛人榜接口文档
+│   └── heat.md          # 热度接口文档
 ├── assets/               # 资源文件目录
 └── evals/
-    └── evals.json        # 测试用例
+    └── signal-evals.json # 测试用例
 ```
 
 ## API 调用方式
@@ -59,15 +61,15 @@ SECRET-KEY：
 
 必须使用以下链名称之一：`SOL, BSC, Base, ETH, Polygon, Arbitrum, Optimism, Avalanche, Monad, SUI`
 
-详见 `references/signal-api.md`
+详见 `references/signal.md`
 
 ## 模块接口文档
 
-- **代币信号模块**：详见 [references/signal-api.md](references/signal-api.md)
+- **代币信号模块**：详见 [references/signal.md](references/signal.md)
   - 信号列表查询（分页，游标方式）
   - 信号排行榜查询（TOP10）
-- **地址牛人榜模块**：详见 [references/address-rank-api.md](references/address-rank-api.md)
-- **热度模块**：详见 [references/heat-api.md](references/heat-api.md)
+- **地址牛人榜模块**：详见 [references/address-rank.md](references/address-rank.md)
+- **热度模块**：详见 [references/heat.md](references/heat.md)
   - 社交热度列表（coin-heat-page）
   - 最新热度数据（coin-last-heat）
   - 推文热度数据（twitter-tweets-heat）
