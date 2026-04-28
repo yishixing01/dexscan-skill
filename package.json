@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "DexScan 技能 - 安装到 Claude Code skills 目录",
     "bin": {
-        "dexscan-skill": "./scripts/install.sh"
+        "dexscan-skill": "./scripts/install.js"
     },
     "repository": {
         "type": "git",
