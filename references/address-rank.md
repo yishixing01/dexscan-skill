@@ -1,17 +1,12 @@
 # 地址牛人榜接口
 
+> **认证说明**：所有接口认证信息详见 SKILL.md 文档
+
 ## 接口信息
 
 **接口地址**: `POST /v3/base/address-rank-page`
 
 **接口描述**: 查询地址盈亏排行榜，支持多条件筛选和排序
-
-**认证头**:
-| Header | 说明 |
-|--------|------|
-| ACCESS-KEY | API密钥，从全局/环境变量获取 |
-| ACCESS-TIMESTAMP | 毫秒时间戳 |
-| ACCESS-SIGN | HMAC-SHA256签名（Base64编码），签名消息：ACCESS-KEY + ":" + ACCESS-TIMESTAMP |
 
 ## 请求参数
 

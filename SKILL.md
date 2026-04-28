@@ -22,9 +22,11 @@ dexscan-skill/
 ├── README.md             # 说明文档
 ├── scripts/
 │   ├── dexscan.js        # API 调用脚本（get/post封装+签名认证）
-│   └── install.sh        # 安装脚本
+│   └── install.js        # 安装脚本
 ├── references/
 │   ├── signal.md         # 代币信号接口文档
+│   ├── market.md         # 行情接口文档
+│   ├── address.md         # 地址情况接口文档
 │   ├── address-rank.md    # 地址牛人榜接口文档
 │   └── heat.md           # 热度接口文档
 ├── assets/               # 资源文件目录
@@ -45,6 +47,18 @@ await dexscan.querySignalList({ chainName: 'SOL', cursor: { address: 'xxx', sign
 
 // 信号排行榜查询
 await dexscan.querySignalRank({ chainName: 'SOL' });
+
+// 行情模块 - 代币排行查询
+await dexscan.queryCoinRank({ chainName: 'SOL', bar: '1h', page: 1, pageSize: 20 });
+
+// 行情模块 - 交易活动列表
+await dexscan.queryTradeScroll({ chainName: 'SOL', tokenContractAddress: 'xxx' });
+
+// 地址情况模块 - 地址交易历史
+await dexscan.queryAddressTradeScroll({ chainName: 'SOL', address: 'xxx' });
+
+// 地址情况模块 - 地址盈亏分析
+await dexscan.queryAddressList({ chainName: 'SOL', address: 'xxx' });
 ```
 
 ## 认证机制
@@ -64,13 +78,27 @@ SECRET-KEY：
 
 必须使用以下链名称之一：`SOL, BSC, Base, ETH, Polygon, Arbitrum, Optimism, Avalanche, Monad, SUI`
 
-详见 `references/signal.md`
-
 ## 模块接口文档
 
 - **代币信号模块**：详见 [references/signal.md](references/signal.md)
   - 信号列表查询（分页，游标方式）
   - 信号排行榜查询（TOP10）
+- **行情模块**：详见 [references/market.md](references/market.md)
+  - 代币排行查询（coin-rank）
+  - 交易活动列表（trade-scroll）
+  - 流动性变化列表（liquid-scroll）
+  - 代币盈利列表（pnl-coin-list）
+  - 开发者代币列表（developer-scroll）
+  - 代币统计信息（coin-summary）
+  - 代币信息（coin-info）
+  - K线历史数据（kline-historical）
+  - Meme代币排行（meme-rank）
+  - Meme支持DEX列表（meme-dexs）
+- **地址情况模块**：详见 [references/address.md](references/address.md)
+  - 地址交易历史（address-trade-scroll）
+  - 地址盈亏分析（address-list）
+  - 地址资产组合（address-asset-top）
+  - 地址开发者代币（developer-page）
 - **地址牛人榜模块**：详见 [references/address-rank.md](references/address-rank.md)
 - **热度模块**：详见 [references/heat.md](references/heat.md)
   - 社交热度列表（coin-heat-page）

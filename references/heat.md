@@ -1,19 +1,15 @@
 # 热度接口
 
+> **认证说明**：所有接口认证信息详见 SKILL.md 文档
+
 ## 1. 社交热度列表
 
 **接口地址**: `POST /v3/base/coin-heat-page`
 
 **接口描述**: 社交热度列表，支持分页和排序
 
-**认证头**:
-| Header | 说明 |
-|--------|------|
-| ACCESS-KEY | API密钥，从全局/环境变量获取 |
-| ACCESS-TIMESTAMP | 毫秒时间戳 |
-| ACCESS-SIGN | HMAC-SHA256签名（Base64编码），签名消息：ACCESS-KEY + ":" + ACCESS-TIMESTAMP |
-
 **请求参数**:
+
 | 参数名称 | 字段说明 | 是否必须 | 数据类型 |
 |----------|----------|----------|----------|
 | page | 页数 | true | integer |
@@ -27,6 +23,7 @@
 | filtrationBlueChipCoin | 是否过滤蓝筹币 | false | boolean |
 
 **响应参数**:
+
 | 参数名称 | 字段说明 | 数据类型 |
 |----------|----------|----------|
 | chainName | 链名 | string |
@@ -61,20 +58,15 @@
 
 **接口描述**: 查询最新热度数据
 
-**认证头**:
-| Header | 说明 |
-|--------|------|
-| ACCESS-KEY | API密钥，从全局/环境变量获取 |
-| ACCESS-TIMESTAMP | 毫秒时间戳 |
-| ACCESS-SIGN | HMAC-SHA256签名（Base64编码），签名消息：ACCESS-KEY + ":" + ACCESS-TIMESTAMP |
-
 **请求参数**:
+
 | 参数名称 | 字段说明 | 是否必须 | 数据类型 |
 |----------|----------|----------|----------|
 | chainName | 链类型（BSC/SOL） | true | string |
 | limit | 数据条数 | true | number |
 
 **响应参数**:
+
 | 参数名称 | 字段说明 | 数据类型 |
 |----------|----------|----------|
 | chainName | 链名 | string |
@@ -93,19 +85,14 @@
 
 **接口描述**: 查询推文热度数据
 
-**认证头**:
-| Header | 说明 |
-|--------|------|
-| ACCESS-KEY | API密钥，从全局/环境变量获取 |
-| ACCESS-TIMESTAMP | 毫秒时间戳 |
-| ACCESS-SIGN | HMAC-SHA256签名（Base64编码），签名消息：ACCESS-KEY + ":" + ACCESS-TIMESTAMP |
-
 **请求参数**:
+
 | 参数名称 | 字段说明 | 是否必须 | 数据类型 |
 |----------|----------|----------|----------|
 | | 推文id列表 | true | array |
 
 **响应参数**:
+
 | 参数名称 | 字段说明 | 数据类型 |
 |----------|----------|----------|
 | snapshootTime | 快照时间 | string |
