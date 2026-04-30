@@ -57,34 +57,35 @@
     "code": 200,
     "data": {
         "cursor": {
-            "blockTime": 1776124800000,
-            "blockHeight": 325000000,
-            "transIndex": 3,
-            "instIndex": 0
+            "blockTime": "2026-04-30 13:21:47",
+            "blockHeight": "416591907",
+            "transIndex": 362,
+            "instIndex": 4001000,
+            "externalCursor": ""
         },
         "list": [
             {
-                "address": "AoTXYoy7kPLCx2DHJq35wiPV8aLKVYF2ShhcZS3XYk9H",
-                "blockTime": "2026-04-17 15:15:05",
-                "blockHeight": 325000001,
-                "transIndex": 3,
-                "instIndex": 0,
-                "baseAddress": "So11111111111111111111111111111111111111112",
-                "swapType": 1,
-                "amount": 10.5,
-                "amountPnl": 10.5,
-                "price": 138.12,
-                "value": 1450.25,
-                "pnl": 135.50,
-                "symbol": "SOL",
-                "icon": "https://static.dexscan.trade/images/logo/sol.png",
-                "nativePrice": 138.12,
-                "marketCap": 65000000000
+                "address": "CyaE1VxvBrahnPWkqm5VsdCvyS2QmNht2UFrKJHga54o",
+                "blockTime": "2026-04-30 13:21:47",
+                "blockHeight": "416591907",
+                "transIndex": 362,
+                "instIndex": 4001000,
+                "baseAddress": "CuaDFXcxt7MV5awapFuQvfQwThA743Cs7e53b1cZpump",
+                "swapType": 2,
+                "amount": 41644603.837879,
+                "amountPnl": 41644603.837879,
+                "price": 0.0000089075276332,
+                "value": 370.95045946155534,
+                "pnl": 108.95635579654717,
+                "symbol": "OpenGithub",
+                "icon": "https://static.dexscan.trade/images/logo/101-CuaDFXcxt7MV5awapFuQvfQwThA743Cs7e53b1cZpump.webp",
+                "nativePrice": 82.60562764263332,
+                "marketCap": 3934.3972518874343
             }
         ]
     },
     "msg": "操作成功",
-    "reqId": "2043948786527789067"
+    "reqId": "2049732977806827520"
 }
 ```
 
@@ -257,18 +258,6 @@
                 "balance": 1500.0,
                 "value": 207180.0,
                 "ratio": 0.65
-            },
-            {
-                "chainName": "SOL",
-                "tokenContractAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-                "symbol": "USDC",
-                "icon": "https://static.dexscan.trade/images/logo/usdc.png",
-                "price": 1.0,
-                "priceChange24h": 0.0001,
-                "address": "AoTXYoy7kPLCx2DHJq35wiPV8aLKVYF2ShhcZS3XYk9H",
-                "balance": 50000.0,
-                "value": 50000.0,
-                "ratio": 0.157
             }
         ]
     },
@@ -340,7 +329,7 @@
 | ---> riskLevel | 风险等级 | true | string |
 | ---> zhCn | 中文描述 | true | string |
 
-**响应示例**:
+**响应示例（developer-page）**:
 
 ```json
 {
@@ -378,3 +367,21 @@
     "reqId": "2043948786527789070"
 }
 ```
+
+---
+
+## 输出规则
+
+### 默认输出字段
+
+**address-trade-scroll**：blockTime, symbol, swapType, amount, price, value, pnl
+
+**address-list**：symbol, baseAddress, balance, balanceValue, buyValue, sellValue, realizedPnl, realizedPnlRatio, unrealizedPnl, unrealizedPnlRatio, totalPnl, totalPnlRatio, riskLevel
+
+**address-asset-top**：symbol, tokenContractAddress, price, priceChange24h, balance, value, ratio
+
+**developer-page**：symbol, tokenAddressBase, price, priceChange, marketCap, liquid, createTime, creatorBalanceRatio, migrateFinished
+
+### 详细信息输出
+
+当用户要求查看详细信息时，输出对应接口的完整响应字段，包含 tagInfo、riskTag、tags 等嵌套数据

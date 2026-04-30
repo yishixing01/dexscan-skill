@@ -18,20 +18,15 @@ description: >
 ```
 dexscan-skill/
 ├── SKILL.md              # 主技能文件（当前文件）
-├── package.json          # npm 包配置
-├── README.md             # 说明文档
 ├── scripts/
-│   ├── dexscan.js        # API 调用脚本（get/post封装+签名认证）
-│   └── install.js        # 安装脚本
+│   └── dexscan.js        # API 调用脚本（get/post封装+签名认证）
 ├── references/
 │   ├── signal.md         # 代币信号接口文档
 │   ├── market.md         # 行情接口文档
-│   ├── address.md         # 地址情况接口文档
-│   ├── address-rank.md    # 地址牛人榜接口文档
+│   ├── address.md        # 地址情况接口文档
+│   ├── address-rank.md   # 地址牛人榜接口文档
 │   └── heat.md           # 热度接口文档
-├── assets/               # 资源文件目录
-└── evals/
-    └── signal-evals.json # 测试用例
+└── assets/               # 资源文件目录
 ```
 
 ## API 调用方式
@@ -77,6 +72,45 @@ SECRET-KEY：
 ## 支持的链名称
 
 必须使用以下链名称之一：`SOL, BSC, Base, ETH, Polygon, Arbitrum, Optimism, Avalanche, Monad, SUI`
+
+## 通用行为规则
+
+1. **语言**：始终以用户提问的语言回复
+2. **链名称**：用户未指定链时默认使用 `SOL`；用户给出别称（如"以太坊"）时映射为对应链名（`ETH`）
+3. **错误处理**：API 返回 `code !== 200` 时，展示 `msg` 字段内容，不展示空数据
+4. **时间字段格式化**：响应数据中字段名含 `time` 或 `date`（不区分大小写）的字段，按客户端默认时区转换为 `yyyy-MM-dd HH:mm:ss` 展示；`cursor` 对象内的字段除外，保持原始值
+5. **数值格式化**：
+   - 价格：小数位超过16位时保留16位小数，截断多余位数
+   - 金额/市值：`≥1B` 显示为 `xB`，`≥1M` 显示为 `xM`，`≥1K` 显示为 `xK`
+   - 涨跌幅/收益率：转为百分比，保留2位小数，正值加 `+` 前缀（如 `+12.34%`）
+   - 胜率/比例：转为百分比，保留1位小数
+6. **分页提示**：响应包含 `cursor` 字段时提示"还有更多数据，如需继续请告知"；无 `cursor` 时提示"已显示全部数据"
+7. **默认输出**：各模块仅输出核心字段（见各模块文档输出规则），用户要求详细信息时输出完整字段
+
+## 接口选择指引
+
+| 用户意图 | 推荐接口 |
+|----------|----------|
+| 查代币信号/推送列表 | `querySignalList` |
+| 查信号排行榜 | `querySignalRank` |
+| 查代币行情排行 | `queryCoinRank` |
+| 查代币详细信息 | `queryCoinInfo` |
+| 查代币近期统计 | `queryCoinSummary` |
+| 查K线历史数据 | `queryKlineHistorical` |
+| 查某代币的链上交易记录 | `queryTradeScroll` |
+| 查某代币的流动性变化 | `queryLiquidScroll` |
+| 查某代币的持仓盈亏 | `queryPnlCoinList` |
+| 查开发者关联代币 | `queryDeveloperScroll` |
+| 查Meme币排行 | `queryMemeRank` |
+| 查Meme支持的DEX列表 | `queryMemeDexs` |
+| 查某地址的交易历史 | `queryAddressTradeScroll` |
+| 查某地址的盈亏分析 | `queryAddressList` |
+| 查某地址的持仓资产 | `queryAddressAssetTop` |
+| 查开发者创建的代币 | `queryDeveloperPage` |
+| 查聪明钱/牛人榜 | `queryAddressRank` |
+| 查社交热度排行 | `queryCoinHeatPage` |
+| 查最新热度数据 | `queryCoinLastHeat` |
+| 查推文热度 | `queryTwitterTweetsHeat` |
 
 ## 模块接口文档
 

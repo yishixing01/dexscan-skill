@@ -36,17 +36,35 @@ function formatTimestamp(timestamp) {
 }
 
 /**
- * 格式化信号数据中的时间戳字段
- * @param {object} signal - 信号对象
- * @returns {object} 格式化后的信号对象
+ * 递归格式化响应数据中的时间字段
+ * 字段名含 time 或 date（不区分大小写）且值为数字时，转换为 yyyy-MM-dd HH:mm:ss 格式
+ * cursor 对象内的字段保持原始值不转换
+ * @param {any} data - 待格式化的数据
+ * @returns {any} 格式化后的数据
  */
-function formatSignalData(signal) {
-    return {
-        ...signal,
-        signalTime: formatTimestamp(signal.signalTime),
-        createTime: formatTimestamp(signal.createTime),
-        firstCreateTime: formatTimestamp(signal.firstCreateTime)
-    };
+function formatResponseData(data) {
+    if (data === null || data === undefined) return data;
+
+    if (Array.isArray(data)) {
+        return data.map(item => formatResponseData(item));
+    }
+
+    if (typeof data === 'object') {
+        const result = {};
+        for (const [key, value] of Object.entries(data)) {
+            if (key === 'cursor') {
+                // cursor 对象内字段保持原始值
+                result[key] = value;
+            } else if (/time|date/i.test(key) && typeof value === 'number') {
+                result[key] = formatTimestamp(value);
+            } else {
+                result[key] = formatResponseData(value);
+            }
+        }
+        return result;
+    }
+
+    return data;
 }
 
 /**
@@ -54,10 +72,7 @@ function formatSignalData(signal) {
  * 优先级：全局变量默认值 > 环境变量
  */
 function getAccessKey() {
-    // 全局变量默认值优先级最高
     if (DEFAULT_ACCESS_KEY) return DEFAULT_ACCESS_KEY;
-
-    // 环境变量
     return process.env.DEXSCAN_ACCESS_KEY || null;
 }
 
@@ -66,10 +81,7 @@ function getAccessKey() {
  * 优先级：全局变量默认值 > 环境变量
  */
 function getSecretKey() {
-    // 全局变量默认值优先级最高
     if (DEFAULT_SECRET_KEY) return DEFAULT_SECRET_KEY;
-
-    // 环境变量
     return process.env.DEXSCAN_SECRET_KEY || null;
 }
 
@@ -83,7 +95,6 @@ function getAuthHeaders() {
     const signString = accessKey + ":" + timestamp;
     const secretKey = getSecretKey();
 
-    // HMAC-SHA256 签名，Base64 编码
     const sign = crypto.createHmac('sha256', secretKey)
         .update(signString)
         .digest('base64');
@@ -138,6 +149,20 @@ async function post(path, data = {}) {
     return response.json();
 }
 
+/**
+ * 发送 POST 请求并对响应数据执行时间字段格式化
+ * @param {string} path - 请求路径
+ * @param {object} data - 请求体数据
+ * @returns {Promise<any>}
+ */
+async function apiPost(path, data = {}) {
+    const result = await post(path, data);
+    if (result && result.data !== undefined) {
+        result.data = formatResponseData(result.data);
+    }
+    return result;
+}
+
 // ==================== 代币信号接口 ====================
 
 /**
@@ -153,15 +178,10 @@ async function post(path, data = {}) {
  */
 async function querySignalList(options = {}) {
     const { chainName, cursor } = options;
-    const result = await post('/v3/base/coin-signal-scroll', {
+    return apiPost('/v3/base/coin-signal-scroll', {
         chainName,
         cursor
     });
-    // 格式化返回数据中的时间戳字段
-    if (result.data && result.data.list && Array.isArray(result.data.list)) {
-        result.data.list = result.data.list.map(item => formatSignalData(item));
-    }
-    return result;
 }
 
 /**
@@ -174,14 +194,9 @@ async function querySignalList(options = {}) {
  */
 async function querySignalRank(options = {}) {
     const { chainName } = options;
-    const result = await post('/v3/base/coin-signal-rank', {
+    return apiPost('/v3/base/coin-signal-rank', {
         chainName
     });
-    // 格式化返回数据中的时间戳字段
-    if (result.data && Array.isArray(result.data)) {
-        result.data = result.data.map(item => formatSignalData(item));
-    }
-    return result;
 }
 
 // ==================== 地址牛人榜接口 ====================
@@ -241,7 +256,7 @@ async function queryAddressRank(options = {}) {
     if (minValue !== undefined) params.minValue = minValue;
     if (maxValue !== undefined) params.maxValue = maxValue;
 
-    return post('/v3/base/address-rank-page', params);
+    return apiPost('/v3/base/address-rank-page', params);
 }
 
 // ==================== 热度接口 ====================
@@ -282,7 +297,7 @@ async function queryCoinHeatPage(options = {}) {
     if (onlyLookNewCoin !== undefined) params.onlyLookNewCoin = onlyLookNewCoin;
     if (filtrationBlueChipCoin !== undefined) params.filtrationBlueChipCoin = filtrationBlueChipCoin;
 
-    return post('/v3/base/coin-heat-page', params);
+    return apiPost('/v3/base/coin-heat-page', params);
 }
 
 /**
@@ -296,7 +311,7 @@ async function queryCoinHeatPage(options = {}) {
  */
 async function queryCoinLastHeat(options = {}) {
     const { chainName, limit } = options;
-    return post('/v3/base/coin-last-heat', {
+    return apiPost('/v3/base/coin-last-heat', {
         chainName,
         limit
     });
@@ -310,7 +325,7 @@ async function queryCoinLastHeat(options = {}) {
  * @returns {Promise<any>}
  */
 async function queryTwitterTweetsHeat(tweetIds = []) {
-    return post('/v3/base/twitter-tweets-heat', tweetIds);
+    return apiPost('/v3/base/twitter-tweets-heat', tweetIds);
 }
 
 // ==================== 行情接口 ====================
@@ -402,7 +417,7 @@ async function queryCoinRank(options = {}) {
     if (minCreateDuration !== undefined) params.minCreateDuration = minCreateDuration;
     if (maxCreateDuration !== undefined) params.maxCreateDuration = maxCreateDuration;
 
-    return post('/v3/base/market/coin-rank', params);
+    return apiPost('/v3/base/market/coin-rank', params);
 }
 
 /**
@@ -452,7 +467,7 @@ async function queryTradeScroll(options = {}) {
     if (size !== undefined) params.size = size;
     if (cursor) params.cursor = cursor;
 
-    return post('/v3/base/market/trade-scroll', params);
+    return apiPost('/v3/base/market/trade-scroll', params);
 }
 
 /**
@@ -502,7 +517,7 @@ async function queryLiquidScroll(options = {}) {
     if (size !== undefined) params.size = size;
     if (cursor) params.cursor = cursor;
 
-    return post('/v3/base/market/liquid-scroll', params);
+    return apiPost('/v3/base/market/liquid-scroll', params);
 }
 
 /**
@@ -531,7 +546,7 @@ async function queryPnlCoinList(options = {}) {
     if (holderList !== undefined) params.holderList = holderList;
     if (addresses) params.addresses = addresses;
 
-    return post('/v3/base/market/pnl-coin-list', params);
+    return apiPost('/v3/base/market/pnl-coin-list', params);
 }
 
 /**
@@ -560,7 +575,7 @@ async function queryDeveloperScroll(options = {}) {
     if (cursor !== undefined) params.cursor = cursor;
     if (needStats !== undefined) params.needStats = needStats;
 
-    return post('/v3/base/market/developer-scroll', params);
+    return apiPost('/v3/base/market/developer-scroll', params);
 }
 
 /**
@@ -577,7 +592,7 @@ async function queryCoinSummary(options = {}) {
     const { chainName, tokenContractAddress, bars } = options;
     const params = { chainName, tokenContractAddress };
     if (bars) params.bars = bars;
-    return post('/v3/base/market/coin-summary', params);
+    return apiPost('/v3/base/market/coin-summary', params);
 }
 
 /**
@@ -591,7 +606,7 @@ async function queryCoinSummary(options = {}) {
  */
 async function queryCoinInfo(options = {}) {
     const { chainName, tokenContractAddress } = options;
-    return post('/v3/base/market/coin-info', {
+    return apiPost('/v3/base/market/coin-info', {
         chainName,
         tokenContractAddress
     });
@@ -618,7 +633,7 @@ async function queryKlineHistorical(options = {}) {
         end
     } = options;
 
-    return post('/v3/base/market/kline-historical', {
+    return apiPost('/v3/base/market/kline-historical', {
         chainName,
         tokenContractAddress,
         interval,
@@ -645,7 +660,7 @@ async function queryMemeRank(options = {}) {
     if (order) params.order = order;
     if (page !== undefined) params.page = page;
     if (pageSize !== undefined) params.pageSize = pageSize;
-    return post('/v3/base/market/meme-rank', params);
+    return apiPost('/v3/base/market/meme-rank', params);
 }
 
 /**
@@ -659,7 +674,7 @@ async function queryMemeRank(options = {}) {
  */
 async function queryMemeDexs(options = {}) {
     const { chainName, tokenContractAddress } = options;
-    return post('/v3/base/market/meme-dexs', {
+    return apiPost('/v3/base/market/meme-dexs', {
         chainName,
         tokenContractAddress
     });
@@ -696,7 +711,7 @@ async function queryAddressTradeScroll(options = {}) {
     if (size !== undefined) params.size = size;
     if (cursor) params.cursor = cursor;
 
-    return post('/v3/base/address/address-trade-scroll', params);
+    return apiPost('/v3/base/address/address-trade-scroll', params);
 }
 
 /**
@@ -749,7 +764,7 @@ async function queryAddressList(options = {}) {
     if (minTotalPnlRatio !== undefined) params.minTotalPnlRatio = minTotalPnlRatio;
     if (maxTotalPnlRatio !== undefined) params.maxTotalPnlRatio = maxTotalPnlRatio;
 
-    return post('/v3/base/address/address-list', params);
+    return apiPost('/v3/base/address/address-list', params);
 }
 
 /**
@@ -775,7 +790,7 @@ async function queryAddressAssetTop(options = {}) {
     if (page !== undefined) params.page = page;
     if (pageSize !== undefined) params.pageSize = pageSize;
 
-    return post('/v3/base/address/address-asset-top', params);
+    return apiPost('/v3/base/address/address-asset-top', params);
 }
 
 /**
@@ -804,7 +819,7 @@ async function queryDeveloperPage(options = {}) {
     if (pageSize !== undefined) params.pageSize = pageSize;
     if (order) params.order = order;
 
-    return post('/v3/base/address/developer-page', params);
+    return apiPost('/v3/base/address/developer-page', params);
 }
 
 // 导出方法

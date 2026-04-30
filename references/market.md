@@ -86,36 +86,51 @@
 {
     "code": 200,
     "data": {
-        "total": 1000,
+        "total": 5142,
         "list": [
             {
                 "chainName": "SOL",
-                "tokenAddressBase": "So11111111111111111111111111111111111111112",
-                "symbol": "SOL",
-                "icon": "https://static.dexscan.trade/images/logo/sol.png",
-                "createTime": 1609459200000,
+                "tokenAddressBase": "CkYTCPCUZVdzQ4hQk67ridrRjACMznd5YChZ2gvyeRP2",
+                "symbol": "Make Coin",
+                "uri": "",
+                "icon": "https://static.dexscan.trade/images/logo/101-CkYTCPCUZVdzQ4hQk67ridrRjACMznd5YChZ2gvyeRP2.png",
+                "createTime": "1777512593000",
+                "totalSupply": "99999999999",
+                "liquid": "14321.53604331449",
+                "holderCount": "127",
+                "marketCap": "6656182.0287034381797123",
+                "windowStart": "1777524600000",
+                "windowEnd": "1777528205000",
                 "bar": "1h",
-                "windowStart": 1776121200000,
-                "windowEnd": 1776124800000,
-                "openPrice": 135.5,
-                "closePrice": 138.2,
-                "high": 139.0,
-                "low": 134.8,
-                "priceChange": 0.0199,
-                "volume": 1234567.89,
-                "value": 168999999.99,
-                "buyTradeCount": 52341,
-                "sellTradeCount": 48203,
-                "tradeCount": 100544,
-                "marketCap": 65000000000,
-                "liquid": 980000000,
-                "holderCount": 4500000,
-                "riskLevel": "NONE"
+                "low": "0.000036526226736",
+                "high": "0.0000671919523579",
+                "buyVolume": "151865100646.2384",
+                "sellVolume": "151892802960.51132",
+                "buyValue": "10021637.484819049",
+                "sellValue": "10021536.819835437",
+                "buyTradeCount": "1726",
+                "sellTradeCount": "1725",
+                "buyAddressCount": "9",
+                "sellAddressCount": "8",
+                "addressCount": "9",
+                "openPrice": "0.000036526226736",
+                "closePrice": "0.0000665618202877",
+                "windowSize": "3600000",
+                "volume": "303757903606.74972",
+                "value": "20043174.304654486",
+                "ondoValue": "",
+                "tradeCount": "3451",
+                "priceChange": "0.8223",
+                "memeDex": "",
+                "riskLevel": "MEDIUM",
+                "offset": "30453672",
+                "coinKey": "SOL_CkYTCPCUZVdzQ4hQk67ridrRjACMznd5YChZ2gvyeRP2"
             }
-        ]
+        ],
+        "extend": ""
     },
     "msg": "操作成功",
-    "reqId": "2043948786527789057"
+    "reqId": "2049732973843210240"
 }
 ```
 
@@ -398,46 +413,47 @@
     "code": 200,
     "data": [
         {
-            "address": "AoTXYoy7kPLCx2DHJq35wiPV8aLKVYF2ShhcZS3XYk9H",
-            "baseAddress": "So11111111111111111111111111111111111111112",
+            "address": "AV7PjXHL5JXZ1YoYRoN9Dsstg1x2UciBupMCXcJP8gUz",
+            "baseAddress": "5BWhSnQbangtYqPKmQjnt8Kux2rHnUzvW6FcvHjv5WGd",
+            "beginTime": "1777520304000",
+            "latestBeginTime": "1777520304000",
+            "latestTime": "1777520327000",
+            "buyAmount": 278185185.185185,
+            "buyAmountDeposit": 0,
+            "buyValue": 871.7286212677658,
+            "buyValueDeposit": 0,
+            "buyNumber": 1,
+            "sellAmount": 278185185.18518496,
+            "sellValue": 5173.580729897584,
+            "sellNumber": 25,
+            "realizedPnl": 4301.852108629819,
+            "unrealizedPnl": 0,
+            "totalPnl": 4301.852108629819,
+            "realizedPnlRatio": 4.93485243420548,
+            "unrealizedPnlRatio": 0,
+            "totalPnlRatio": 4.934852434205477,
+            "buyAvgPrice": 0.0000031336270502236307,
+            "sellAvgPrice": 0.00001859761412691185,
+            "price": 0.0000027634590209,
+            "balance": 0,
+            "totalSupply": 999977065.842766,
+            "nativeBalance": 19.595221918,
+            "balanceValue": 0,
+            "sourceAddress": "7fxc53tKLwxdc52D3kGF9h9aPEQWYTa7ivZfhAFYbtB4",
+            "sourceTime": "1772326231000",
             "chainName": "SOL",
-            "symbol": "SOL",
-            "icon": "https://static.dexscan.trade/images/logo/sol.png",
-            "price": 138.12,
-            "balance": 1500.0,
-            "balanceValue": 207180.0,
-            "beginTime": 1700000000000,
-            "latestBeginTime": 1776000000000,
-            "latestTime": 1776124900000,
-            "buyAmount": 2000.0,
-            "buyValue": 250000.0,
-            "buyNumber": 5,
-            "buyAvgPrice": 125.0,
-            "sellAmount": 500.0,
-            "sellValue": 65000.0,
-            "sellNumber": 2,
-            "sellAvgPrice": 130.0,
-            "realizedPnl": 2500.0,
-            "realizedPnlRatio": 0.04,
-            "unrealizedPnl": 19680.0,
-            "unrealizedPnlRatio": 0.105,
-            "totalPnl": 22180.0,
-            "totalPnlRatio": 0.1,
+            "symbol": "MEGAMEN",
+            "icon": "https://static.dexscan.trade/images/logo/101-5BWhSnQbangtYqPKmQjnt8Kux2rHnUzvW6FcvHjv5WGd.jpeg",
             "riskLevel": "NONE",
-            "holdingPeriod": 76124900000,
-            "tagInfo": {
-                "address": "AoTXYoy7kPLCx2DHJq35wiPV8aLKVYF2ShhcZS3XYk9H",
-                "name": "ST.",
-                "url": "https://x.com/sleektimmy",
-                "icon": "https://static.dexscan.trade/kol/sleektimmy.png",
-                "fans": 24757,
-                "tag": "kol"
-            },
-            "tags": ["KOL"]
+            "tagInfo": "",
+            "tags": [
+                "DEV"
+            ],
+            "holdingPeriod": "23000"
         }
     ],
     "msg": "操作成功",
-    "reqId": "2043948786527789060"
+    "reqId": "2049734000365559808"
 }
 ```
 
@@ -510,6 +526,59 @@
 | -> topMarketCap | 市值最高的代币 | false | object |
 | -> lastCreateCoin | 最新创建的代币 | false | object |
 
+**响应示例**:
+
+```json
+{
+    "code": 200,
+    "data": {
+        "cursor": "1777522397000",
+        "list": [
+            {
+                "chainName": "SOL",
+                "symbol": "horboobs",
+                "name": "Strait of Horboobs",
+                "tokenAddressBase": "DK2UCiU6KjgfcrmxmdGtGodPsXEsRRDbfvc9xTTth1WZ",
+                "icon": "https://static.dexscan.trade/images/logo/101-DK2UCiU6KjgfcrmxmdGtGodPsXEsRRDbfvc9xTTth1WZ.jpeg",
+                "creator": "AV7PjXHL5JXZ1YoYRoN9Dsstg1x2UciBupMCXcJP8gUz",
+                "liquid": "0.320585733583475",
+                "volume": "351064647.004989",
+                "value": "956.1649245589174",
+                "totalSupply": "999999998.926997",
+                "marketCap": "2331.2197969985941614771015",
+                "holderCount": "1",
+                "price": "0.0000023312197995",
+                "priceChange": "-0.13688",
+                "createTime": "1777522397000",
+                "riskTag": {
+                    "address": "DK2UCiU6KjgfcrmxmdGtGodPsXEsRRDbfvc9xTTth1WZ",
+                    "chainName": "SOL",
+                    "level": "NONE",
+                    "riskTags": ""
+                },
+                "noPnl": false,
+                "creatorBalance": "0",
+                "top10BalanceSum": "0",
+                "tradeCount": "18",
+                "telegram": "",
+                "twitter": "https://x.com/AutismCapital/status/2049703454780891161",
+                "website": "",
+                "kolCount": 1,
+                "newCount": 0,
+                "ondoMarketCap": "",
+                "ondoPriceChange24h": "",
+                "migrateFinished": false,
+                "migrateProgress": "0.0001",
+                "creatorBalanceRatio": "0"
+            }
+        ],
+        "stats": ""
+    },
+    "msg": "操作成功",
+    "reqId": "2049734014487781376"
+}
+```
+
 ---
 
 ## 6. 查询代币近期统计信息
@@ -552,6 +621,50 @@
 | sellAddressCount | 卖出地址数 | false | number |
 | addressCount | 总活跃地址数 | false | number |
 | holderCount | 持币地址数 | false | number |
+
+**响应示例**:
+
+```json
+{
+    "code": 200,
+    "data": [
+        {
+            "chainName": "SOL",
+            "tokenAddressBase": "5BWhSnQbangtYqPKmQjnt8Kux2rHnUzvW6FcvHjv5WGd",
+            "symbol": "MEGAMEN",
+            "icon": "https://static.dexscan.trade/images/logo/101-5BWhSnQbangtYqPKmQjnt8Kux2rHnUzvW6FcvHjv5WGd.jpeg",
+            "createTime": "1777520304000",
+            "totalSupply": "999977065.842766",
+            "liquid": "4091.8593300901225",
+            "holderCount": "149",
+            "marketCap": "2763.3956432963049637078094",
+            "windowStart": "1777529190000",
+            "bar": "5m",
+            "openPrice": "0.0000030434918438",
+            "closePrice": "0.0000027634590209",
+            "priceChange": "-0.09201",
+            "low": "0.0000027634590209",
+            "high": "0.0000030434918438",
+            "buyVolume": "0",
+            "sellVolume": "34899904.340996",
+            "volume": "34899904.340996",
+            "buyValue": "0",
+            "sellValue": "100.17907561654481",
+            "value": "100.17907561654481",
+            "buyTradeCount": "0",
+            "sellTradeCount": "6",
+            "tradeCount": "6",
+            "buyAddressCount": "0",
+            "sellAddressCount": "4",
+            "addressCount": "4",
+            "memeDex": "Pump.fun",
+            "riskLevel": "NONE"
+        }
+    ],
+    "msg": "操作成功",
+    "reqId": "2049734027288797184"
+}
+```
 
 ---
 
@@ -600,6 +713,41 @@
 | top10HolderRatio | Top10持仓比例 | false | number |
 | fundingAddress | 资金地址 | false | string |
 
+**响应示例**:
+
+```json
+{
+    "code": 200,
+    "data": {
+        "chainName": "SOL",
+        "tokenAddressBase": "So11111111111111111111111111111111111111112",
+        "symbol": "SOL",
+        "name": "Wrapped SOL",
+        "decimals": 9,
+        "icon": "https://static.dexscan.trade/images/logo/sol.png",
+        "totalSupply": 999999999.99,
+        "createTime": 1609459200000,
+        "creator": "SysvarC1ock11111111111111111111111111111111",
+        "price": 138.12,
+        "priceChange": 0.0199,
+        "marketCap": 65000000000,
+        "liquid": 980000000,
+        "volume": 1234567.89,
+        "value": 168999999.99,
+        "holderCount": 4500000,
+        "kolCount": 1280,
+        "newCount": 23400,
+        "riskLevel": "NONE",
+        "mint": false,
+        "freeze": false,
+        "transferFee": 0,
+        "top10HolderRatio": 0.35
+    },
+    "msg": "操作成功",
+    "reqId": "2043948786527789063"
+}
+```
+
 ---
 
 ## 8. 查询K线历史数据
@@ -629,6 +777,28 @@
 | -> low | 最低价 | true | number |
 | -> close | 收盘价 | true | number |
 | -> volume | 成交量 | true | number |
+
+**响应示例**:
+
+```json
+{
+    "code": 200,
+    "data": {
+        "list": [
+            {
+                "time": 1776121200000,
+                "open": 135.50,
+                "high": 139.00,
+                "low": 134.80,
+                "close": 138.20,
+                "volume": 123456.78
+            }
+        ]
+    },
+    "msg": "操作成功",
+    "reqId": "2043948786527789064"
+}
+```
 
 ---
 
@@ -670,6 +840,37 @@
 | -> createTime | 创建时间 | false | number |
 | -> riskLevel | 风险等级 | false | string |
 
+**响应示例**:
+
+```json
+{
+    "code": 200,
+    "data": {
+        "total": 500,
+        "list": [
+            {
+                "chainName": "SOL",
+                "tokenAddressBase": "38Hb8v9yFen5fN3FJUSuf8SuiVbzGYcTgkmsjqkKpump",
+                "symbol": "SOUL",
+                "name": "Soulana",
+                "icon": "https://static.dexscan.trade/images/logo/101-38Hb.webp",
+                "price": 0.000002565,
+                "priceChange": 0.482,
+                "marketCap": 2564.59,
+                "liquid": 1200.00,
+                "volume": 5000000.00,
+                "holderCount": 1256,
+                "newHolderCount": 320,
+                "createTime": 1776122379000,
+                "riskLevel": "NONE"
+            }
+        ]
+    },
+    "msg": "操作成功",
+    "reqId": "2043948786527789065"
+}
+```
+
 ---
 
 ## 10. 查询Meme支持的DEX列表
@@ -695,3 +896,53 @@
 | dexAddress | DEX地址 | true | string |
 | poolAddress | 池子地址 | false | string |
 | version | 版本 | false | string |
+
+**响应示例**:
+
+```json
+{
+    "code": 200,
+    "data": [
+        {
+            "dexEnum": 1,
+            "dexName": "Raydium",
+            "dexIcon": "https://static.dexscan.trade/dex/raydium.png",
+            "dexAddress": "9W959DqEETiGZocYWCQPaJ6sBmUzgfxXfqGeTEdp3aQP",
+            "poolAddress": "HJPjoWUrhoZzkNfRpHuieeFk9WcZWjwy6PBjZ81ngndJ",
+            "version": "v4"
+        }
+    ],
+    "msg": "操作成功",
+    "reqId": "2043948786527789066"
+}
+```
+
+---
+
+## 输出规则
+
+### 默认输出字段
+
+**coin-rank**：symbol, chainName, tokenAddressBase, priceChange, volume, value, marketCap, holderCount, riskLevel
+
+**trade-scroll**：blockTime, swapType, address, baseSymbol, baseAmount, price, value, tags
+
+**liquid-scroll**：blockTime, swapType, address, value, tokens（含 symbol、amount）
+
+**pnl-coin-list**：address, symbol, balance, balanceValue, buyValue, sellValue, realizedPnl, realizedPnlRatio, totalPnl, totalPnlRatio, tags
+
+**developer-scroll**：symbol, chainName, tokenAddressBase, price, priceChange, marketCap, liquid, creatorBalanceRatio, migrateFinished
+
+**coin-summary**：输出所有字段
+
+**coin-info**：输出所有字段
+
+**kline-historical**：输出 list 全部字段（time, open, high, low, close, volume）
+
+**meme-rank**：symbol, chainName, tokenAddressBase, price, priceChange, marketCap, holderCount, riskLevel
+
+**meme-dexs**：输出所有字段
+
+### 详细信息输出
+
+当用户要求查看详细信息时，输出对应接口的完整响应字段，包含 tagInfo、riskTag、stats 等嵌套数据

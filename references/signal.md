@@ -77,18 +77,75 @@
 | -> firstMaxPriceChange | 首次信号最大涨幅 | true | string |
 | -> firstCreateTime | 首次信号推送时间 | true | number |
 
----
+**响应示例**:
 
-## 输出规则
-
-### 信号列表查询输出规则
-
-**默认输出**：
-- `cursor`：游标信息（address, signalTime）
-- `list` 表头字段：symbol, chainName, address, price, holder, marketCap, score, signalTime, firstMaxPriceChange, firstCreateTime
-
-**查询详细信息**（用户要求查看详细信息时）：输出 list 下一层级所有字段：
-- chainName, address, symbol, name, icon, riskTag, top10BalanceSum, signalPrice, signalMarketCap, signalHolder, price, marketCap, holder, score, maxPriceChange, signalTime, hot, totalSupply, chartList, hisList, createTime, firstMaxPriceChange, firstCreateTime
+```json
+{
+    "code": 200,
+    "data": {
+        "cursor": {
+            "address": "CpmiJvsPHnK7suAfe5jZGQJQEbxEAVh65wJ1RT1Fpump",
+            "signalTime": 1777482160000
+        },
+        "list": [
+            {
+                "chainName": "SOL",
+                "address": "5BWhSnQbangtYqPKmQjnt8Kux2rHnUzvW6FcvHjv5WGd",
+                "symbol": "MEGAMEN",
+                "name": "MegaMen",
+                "icon": "https://static.dexscan.trade/images/logo/101-5BWhSnQbangtYqPKmQjnt8Kux2rHnUzvW6FcvHjv5WGd.jpeg",
+                "riskTag": {
+                    "address": "5BWhSnQbangtYqPKmQjnt8Kux2rHnUzvW6FcvHjv5WGd",
+                    "chainName": "SOL",
+                    "level": "NONE",
+                    "riskTags": []
+                },
+                "top10BalanceSum": "146170257.23356401920318603515625",
+                "signalPrice": "0.0000531437210105",
+                "signalMarketCap": "53143.7210105",
+                "signalHolder": "308",
+                "price": "0.0000030434918438",
+                "marketCap": "3043.4220438795138942319508",
+                "holder": "153",
+                "score": 61,
+                "maxPriceChange": "0.303",
+                "signalTime": 1777520343000,
+                "totalSupply": "999977065.842766",
+                "chartList": [
+                    {
+                        "time": 1777520340000,
+                        "price": "0.0000692439754826",
+                        "hot": "",
+                        "tagInfo": {
+                            "address": "FajxNukkjDLGXfB5V3L1msrU9qgzuzhN4s4YQfefSCKp",
+                            "name": "Divix",
+                            "url": "https://x.com/cryptodivix",
+                            "icon": "https://static.dexscan.trade/kol/cryptodivix.png",
+                            "fans": 80713,
+                            "tag": "kol"
+                        },
+                        "value": "308.06155562842645",
+                        "kolComment": "",
+                        "signal": true
+                    }
+                ],
+                "hisList": [
+                    {
+                        "signalTime": 1777520343000,
+                        "score": 61,
+                        "marketCap": "53143.7210105"
+                    }
+                ],
+                "createTime": 1777520304000,
+                "firstMaxPriceChange": "0.303",
+                "firstCreateTime": 1777520343000
+            }
+        ]
+    },
+    "msg": "操作成功",
+    "reqId": "2049732973264396288"
+}
+```
 
 ---
 
@@ -117,3 +174,40 @@
 | score | 最新信号评分 | true | number |
 | maxPriceChange | 最新信号价格最大涨幅 | true | string |
 | signalTime | 最新信号推送时间 | true | number |
+
+**响应示例**:
+
+```json
+{
+    "code": 200,
+    "data": [
+        {
+            "chainName": "SOL",
+            "address": "2ssMotVbTUfRJev2UnibHzHsoeszPzgwbfsTZPSHpump",
+            "symbol": "Wish",
+            "name": "Make A Wish",
+            "icon": "https://static.dexscan.trade/images/logo/101-2ssMotVbTUfRJev2UnibHzHsoeszPzgwbfsTZPSHpump.jpeg",
+            "marketCap": "2252716.2728507410401950835774",
+            "score": 66,
+            "maxPriceChange": "0.8151",
+            "signalTime": 1777514626000
+        }
+    ],
+    "msg": "操作成功",
+    "reqId": "2049732973738352640"
+}
+```
+
+---
+
+## 输出规则
+
+### 默认输出字段
+
+**coin-signal-scroll**：symbol, chainName, address, price, holder, marketCap, score, signalTime, firstMaxPriceChange, firstCreateTime
+
+**coin-signal-rank**：symbol, chainName, address, marketCap, score, maxPriceChange, signalTime
+
+### 详细信息输出
+
+当用户要求查看详细信息时，输出对应接口的完整响应字段，包含 riskTag、chartList、hisList 等嵌套数据

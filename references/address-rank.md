@@ -68,10 +68,72 @@
 | --> label | 标签列表 | array |
 | --> score | AI评分 | number |
 
+**响应示例**:
+
+```json
+{
+    "code": 200,
+    "data": {
+        "total": 1089,
+        "list": [
+            {
+                "address": "CyaE1VxvBrahnPWkqm5VsdCvyS2QmNht2UFrKJHga54o",
+                "chainName": "SOL",
+                "bar": "7d",
+                "pnl": 206389.5398410519,
+                "pnlRatio": 0.26890182193926954,
+                "buyValue": 768478.369521926,
+                "sellValue": 973917.0275784321,
+                "buyNumber": 5671,
+                "sellNumber": 2223,
+                "winRatio": 0.6333030027297544,
+                "lastTransTime": "2026-04-30 13:21:47",
+                "pnlTrend": {
+                    "2026-04-24": "13966.97050299",
+                    "2026-04-25": "18302.45783004",
+                    "2026-04-26": "37975.32633631",
+                    "2026-04-27": "23217.89264893",
+                    "2026-04-28": "61519.51746461",
+                    "2026-04-29": "42900.49942334",
+                    "2026-04-30": "8506.87563482"
+                },
+                "highPnlCoins": [
+                    {
+                        "icon": "https://static.dexscan.trade/images/logo/101-4y1gkKzCb4qAiH8pH8ft2xvezf6sazurmYDajWXwpump.webp",
+                        "symbol": "CREATURES",
+                        "pnl": "22017.9327792186",
+                        "pnlRatio": "1.51895",
+                        "caddress": "4y1gkKzCb4qAiH8pH8ft2xvezf6sazurmYDajWXwpump"
+                    }
+                ],
+                "updateTime": "2026-04-30 13:59:53",
+                "number": 7894,
+                "value": 1742395.3971003583,
+                "buyAvgPrice": 135.51020446516065,
+                "tagInfo": {
+                    "address": "CyaE1VxvBrahnPWkqm5VsdCvyS2QmNht2UFrKJHga54o",
+                    "name": "CENTED",
+                    "url": "https://x.com/Cented7",
+                    "icon": "https://static.dexscan.trade/kol/Cented7.png",
+                    "fans": 494140,
+                    "tag": "kol"
+                },
+                "aiLabel": ""
+            }
+        ],
+        "extend": ""
+    },
+    "msg": "操作成功",
+    "reqId": "2049732977899102208"
+}
+```
+
 ## 输出规则
 
-**默认输出**：
-- `total`：总记录数
-- `list` 表头字段：address, chainName, pnl, pnlRatio, winRatio, number, value, lastTransTime
+### 默认输出字段
 
-**查询详细信息**（用户要求查看详细信息时）：输出 list 下一层级所有字段，包含 tagInfo, aiLabel, highPnlCoins 等
+**address-rank-page**：address, chainName, pnl, pnlRatio, winRatio, number, value, lastTransTime
+
+### 详细信息输出
+
+当用户要求查看详细信息时，输出 list 下一层级所有字段，包含 tagInfo、aiLabel、highPnlCoins 等嵌套数据
