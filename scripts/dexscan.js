@@ -3,18 +3,18 @@
  * 提供 get/post 请求方式，支持签名认证
  *
  * ACCESS-KEY 获取优先级（从高到低）：
- * 1. js文件全局变量默认值：e562239ecfd845a4bf3b4cad533f8d2b
- * 2. 操作系统环境变量：DEXSCAN-ACCESS-KEY
+ * 1. 操作系统环境变量：DEXSCAN_ACCESS_KEY
+ * 2. js文件全局变量默认值：e562239ecfd845a4bf3b4cad533f8d2b
  *
  * SECRET-KEY 获取优先级（从高到低）：
- * 1. js文件全局变量默认值：de7b589f7628452c84f90ff370facfb3
- * 2. 操作系统环境变量：DEXSCAN-SECRET-KEY
+ * 1. 操作系统环境变量：DEXSCAN_SECRET_KEY
+ * 2. js文件全局变量默认值：de7b589f7628452c84f90ff370facfb3
  */
 
 const crypto = require('crypto');
 const BASE_URI = 'http://192.168.224.29/api';
 
-// 全局变量默认值（优先级最高）
+// 全局变量默认值（环境变量不存在时使用）
 const DEFAULT_ACCESS_KEY = 'e562239ecfd845a4bf3b4cad533f8d2b';
 const DEFAULT_SECRET_KEY = 'de7b589f7628452c84f90ff370facfb3';
 
@@ -69,20 +69,18 @@ function formatResponseData(data) {
 
 /**
  * 获取 ACCESS-KEY
- * 优先级：全局变量默认值 > 环境变量
+ * 优先级：环境变量 > 全局变量默认值
  */
 function getAccessKey() {
-    if (DEFAULT_ACCESS_KEY) return DEFAULT_ACCESS_KEY;
-    return process.env.DEXSCAN_ACCESS_KEY || null;
+    return process.env.DEXSCAN_ACCESS_KEY || DEFAULT_ACCESS_KEY || null;
 }
 
 /**
  * 获取 SECRET-KEY
- * 优先级：全局变量默认值 > 环境变量
+ * 优先级：环境变量 > 全局变量默认值
  */
 function getSecretKey() {
-    if (DEFAULT_SECRET_KEY) return DEFAULT_SECRET_KEY;
-    return process.env.DEXSCAN_SECRET_KEY || null;
+    return process.env.DEXSCAN_SECRET_KEY || DEFAULT_SECRET_KEY || null;
 }
 
 /**

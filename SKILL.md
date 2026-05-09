@@ -60,14 +60,14 @@ await dexscan.queryAddressList({ chainName: 'SOL', address: 'xxx' });
 
 API 请求头包含签名认证：
 - `ACCESS-KEY`：
-  - js文件全局变量默认值（最高优先级）：`e562239ecfd845a4bf3b4cad533f8d2b`
-  - 操作系统环境变量：`DEXSCAN-ACCESS-KEY`
+  - 操作系统环境变量（最高优先级）：`DEXSCAN_ACCESS_KEY`
+  - js文件全局变量默认值：`e562239ecfd845a4bf3b4cad533f8d2b`
 - `ACCESS-TIMESTAMP`：当前毫秒时间戳
 - `ACCESS-SIGN`：`HMAC-SHA256(ACCESS-KEY + ":" + ACCESS-TIMESTAMP)` 的 Base64 编码
 
 SECRET-KEY：
-- js文件全局变量默认值（最高优先级）：`de7b589f7628452c84f90ff370facfb3`
-- 操作系统环境变量：`DEXSCAN-SECRET-KEY`
+- 操作系统环境变量（最高优先级）：`DEXSCAN_SECRET_KEY`
+- js文件全局变量默认值：`de7b589f7628452c84f90ff370facfb3`
 
 ## 支持的链名称
 
