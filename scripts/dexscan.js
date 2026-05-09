@@ -3,11 +3,11 @@
  * 提供 get/post 请求方式，支持签名认证
  *
  * ACCESS-KEY 获取优先级（从高到低）：
- * 1. 操作系统环境变量：DEXSCAN_ACCESS_KEY
+ * 1. 操作系统环境变量：DS_ACCESS_KEY
  * 2. js文件全局变量默认值：e562239ecfd845a4bf3b4cad533f8d2b
  *
  * SECRET-KEY 获取优先级（从高到低）：
- * 1. 操作系统环境变量：DEXSCAN_SECRET_KEY
+ * 1. 操作系统环境变量：DS_SECRET_KEY
  * 2. js文件全局变量默认值：de7b589f7628452c84f90ff370facfb3
  */
 
@@ -72,7 +72,7 @@ function formatResponseData(data) {
  * 优先级：环境变量 > 全局变量默认值
  */
 function getAccessKey() {
-    return process.env.DEXSCAN_ACCESS_KEY || DEFAULT_ACCESS_KEY || null;
+    return process.env.DS_ACCESS_KEY || DEFAULT_ACCESS_KEY || null;
 }
 
 /**
@@ -80,7 +80,7 @@ function getAccessKey() {
  * 优先级：环境变量 > 全局变量默认值
  */
 function getSecretKey() {
-    return process.env.DEXSCAN_SECRET_KEY || DEFAULT_SECRET_KEY || null;
+    return process.env.DS_SECRET_KEY || DEFAULT_SECRET_KEY || null;
 }
 
 /**
