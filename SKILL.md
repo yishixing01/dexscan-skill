@@ -107,7 +107,6 @@ SECRET-KEY：
 | 查开发者创建的代币 | `queryDeveloperPage` |
 | 查聪明钱/牛人榜 | `queryAddressRank` |
 | 查社交热度排行 | `queryCoinHeatPage` |
-| 查最新热度数据 | `queryCoinLastHeat` |
 | 查推文热度 | `queryTwitterTweetsHeat` |
 
 ## 模块接口文档
@@ -134,5 +133,4 @@ SECRET-KEY：
 - **地址牛人榜模块**：详见 [references/address-rank.md](references/address-rank.md)
 - **热度模块**：详见 [references/heat.md](references/heat.md)
   - 社交热度列表（coin-heat-page）
-  - 最新热度数据（coin-last-heat）
   - 推文热度数据（twitter-tweets-heat）

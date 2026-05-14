@@ -299,23 +299,6 @@ async function queryCoinHeatPage(options = {}) {
 }
 
 /**
- * 最新热度数据查询
- * 接口地址: POST /v3/base/coin-last-heat
- * 接口描述: 查询最新热度数据
- * @param {object} options - 查询参数
- * @param {string} options.chainName - 链类型（BSC/SOL）
- * @param {number} options.limit - 数据条数
- * @returns {Promise<any>}
- */
-async function queryCoinLastHeat(options = {}) {
-    const { chainName, limit } = options;
-    return apiPost('/v3/base/coin-last-heat', {
-        chainName,
-        limit
-    });
-}
-
-/**
  * 推文热度数据查询
  * 接口地址: POST /v3/base/twitter-tweets-heat
  * 接口描述: 查询推文热度数据
@@ -831,7 +814,6 @@ module.exports = {
     queryAddressRank,
     // 热度
     queryCoinHeatPage,
-    queryCoinLastHeat,
     queryTwitterTweetsHeat,
     // 行情
     queryCoinRank,

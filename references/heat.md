@@ -115,55 +115,7 @@
 
 ---
 
-## 2. 最新热度数据
-
-**接口地址**: `POST /v3/base/coin-last-heat`
-
-**接口描述**: 查询最新热度数据
-
-**请求参数**:
-
-| 参数名称 | 字段说明 | 是否必须 | 数据类型 |
-|----------|----------|----------|----------|
-| chainName | 链类型（BSC/SOL） | true | string |
-| limit | 数据条数 | true | number |
-
-**响应参数**:
-
-| 参数名称 | 字段说明 | 数据类型 |
-|----------|----------|----------|
-| chainName | 链名 | string |
-| address | 代币地址 | string |
-| symbol | 代币符号 | string |
-| heatTime | 热度时间 | string |
-| heatRaw | 原始热度 | number |
-| heatEma | 平滑后的热度 | number |
-| createTime | 创建时间 | string |
-
-**响应示例**:
-
-```json
-{
-    "code": 200,
-    "data": [
-        {
-            "chainName": "SOL",
-            "address": "38Hb8v9yFen5fN3FJUSuf8SuiVbzGYcTgkmsjqkKpump",
-            "symbol": "SOUL",
-            "heatTime": "2026-04-17 16:00:00",
-            "heatRaw": 9823,
-            "heatEma": 8640,
-            "createTime": "2026-04-17 15:00:00"
-        }
-    ],
-    "msg": "操作成功",
-    "reqId": "2043948786527789004"
-}
-```
-
----
-
-## 3. 推文热度数据
+## 2. 推文热度数据
 
 **接口地址**: `POST /v3/base/twitter-tweets-heat`
 
@@ -221,8 +173,6 @@
 ### 默认输出字段
 
 **coin-heat-page**：address, symbol, displayHeat, priceFluctuationRatio, heatFluctuation, heatFluctuationRatio
-
-**coin-last-heat**：chainName, address, symbol, heatRaw, heatEma, createTime
 
 **twitter-tweets-heat**：tweetId, userId, tweetText, tweetTime, views, replies, retweets, likes
 
